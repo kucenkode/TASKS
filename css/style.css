@@ -1,0 +1,33 @@
+html {
+    box-sizing: border-box;
+}
+
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+body {
+    margin: 0;
+    font-family: 'Alegreya', serif;
+    font-weight: 400;
+}
+
+:root {
+    --color1: #fde0f7;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    width: 1728px;
+    max-width: 100vw;
+    height: 100vh;
+    background-color: var(--color1);
+}
+
+h1 {
+    color: #000000;
+    margin: auto;
+    text-transform: uppercase;
+    font-size: calc(18px + 16 * (100vw / 1280));
+}
