@@ -155,7 +155,7 @@ function replaceCharacterWay2(replChar, newChar) {
             const result =  origStr.split('').map(character => character === replChar ? newChar : character).join('')
             return result
         }
-        //Если ввели строку`
+        //Если ввели строку
         const result =  origStr.split(' ').map(character => character === replChar ? newChar : character).join(' ')
         return result
     }
@@ -171,6 +171,7 @@ console.log("Поиск индекса элемента в массиве. Сп�
 let animals = ['cat', 'dog', 'parrot','horse']
 function getAnimalPositionWay1(target) {
     if (animals.includes(target)) {
+        //если значение элемента массива совпадает с введенным, выводим его индекс
         let index = animals.indexOf(target)
         return index;
     } else return 'Такого элемента нет!'
@@ -180,6 +181,7 @@ console.log(getAnimalPositionWay1('parrot'))
 console.log(getAnimalPositionWay2('crocodile'))
 
 //Способ 2
+//Метод findIndex
 console.log('Способ 2: ')
 function getAnimalPositionWay2(target) {
     if (animals.includes(target)) {
@@ -192,6 +194,7 @@ console.log(getAnimalPositionWay2('parrot'))
 console.log(getAnimalPositionWay2('tiger'))
 
 /* Удаление элементов из массива */
+//Так как у меня уже есть подобный массив, просто добавим недостающие значения
 animals.push('fish', 'chicken', 'lion')
 
 //Способ 1
@@ -212,6 +215,7 @@ animals.push('cat', 'fish', 'chicken', 'lion')
 console.log('Способ 2: ')
 function removeAnimalWay2(animalToDelete) {
     if (animals.includes(animalToDelete)) {
+        //В измененном массиве оставляем все, кроме введенного значения animalToDelete
         let modifiedArray = animals.filter(animal => animal !== animalToDelete)
         return modifiedArray
     } else return 'Элемент не найден.'
@@ -224,15 +228,15 @@ console.log(removeAnimalWay2('cat'))
 console.log('Способ 3: ')
 function removeAnimalWay3() {
     //Можно использовать методы, удаляющие первый/последний элемент. Они тоже меняют исходный массив
-    let deleteFirstAnimal = animals.shift() 
-    let deleteLastAnimal = animals.pop()
+    let deleteFirstAnimal = animals.shift() //удаляет первый элемент
+    let deleteLastAnimal = animals.pop() //удаляет последний элемент
     return animals
 }
 
 console.log(removeAnimalWay3())
 
 //Способ 4
-//Можно использовать метод, похожий на splice, но при этом не меняющий исходный массив
+//Можно использовать метод, похожий на splice, но при этом не меняющий исходный массив - slice
 console.log('Способ 4: ')
 function removeAnimalWay4(start, end) {
     let deletedAnimal = animals.slice(start, end)
@@ -242,3 +246,26 @@ function removeAnimalWay4(start, end) {
 console.log(removeAnimalWay4(0, -1))
 console.log(removeAnimalWay4(1)) 
 
+/* Фильтрация массива */
+
+const unfilteredArray = [31, 10, 'chicken', 9, 'fish', 10]
+
+//Сделаем, чтобы можно было отфильтровать массив как по определенному типу данных, так и по значению
+console.log('Фильтрация массива:')
+function filterArrayByType(target) {
+    if (unfilteredArray.some(element => typeof(element) === target)) {
+        //Если хоть один элемент удовлетворяет условию, то фильтруем массив по этому типу данных
+        let filteredArray = unfilteredArray.filter(element => typeof(element) === target)
+        return filteredArray
+    }
+    else if (unfilteredArray.some(element => element === target)) {
+        //Если хоть один элемент удовлетворяет условию, то фильтруем массив по этому значению (например, 10)
+        let filteredArray = unfilteredArray.filter(element => element === target)
+        return filteredArray
+    } else return 'Не нашлось ни одного элемента, удовлетворяющего условию.'
+}
+
+console.log(filterArrayByType('string'))
+console.log(filterArrayByType('number'))
+console.log(filterArrayByType('object'))
+console.log(filterArrayByType(10))
