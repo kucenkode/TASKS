@@ -191,3 +191,54 @@ function getAnimalPositionWay2(target) {
 console.log(getAnimalPositionWay2('parrot'))
 console.log(getAnimalPositionWay2('tiger'))
 
+/* Удаление элементов из массива */
+animals.push('fish', 'chicken', 'lion')
+
+//Способ 1
+//Метод splice меняет исходный массив
+console.log('Удаление элементов из массива. Способ 1: ')
+function removeAnimalWay1(start, amountToDelete) {
+        let deletedAnimal = animals.splice(start, amountToDelete)
+        return animals
+}
+
+console.log(removeAnimalWay1(4, 1))
+console.log(removeAnimalWay1(0, 1))
+console.log(removeAnimalWay1(3, 2))
+
+//Способ 2
+//Верну, что удалила, чтобы продолжить работу именно с этим массивом
+animals.push('cat', 'fish', 'chicken', 'lion') 
+console.log('Способ 2: ')
+function removeAnimalWay2(animalToDelete) {
+    if (animals.includes(animalToDelete)) {
+        let modifiedArray = animals.filter(animal => animal !== animalToDelete)
+        return modifiedArray
+    } else return 'Элемент не найден.'
+}
+
+console.log(removeAnimalWay2('chicken'))
+console.log(removeAnimalWay2('cat'))
+
+//Способ 3
+console.log('Способ 3: ')
+function removeAnimalWay3() {
+    //Можно использовать методы, удаляющие первый/последний элемент. Они тоже меняют исходный массив
+    let deleteFirstAnimal = animals.shift() 
+    let deleteLastAnimal = animals.pop()
+    return animals
+}
+
+console.log(removeAnimalWay3())
+
+//Способ 4
+//Можно использовать метод, похожий на splice, но при этом не меняющий исходный массив
+console.log('Способ 4: ')
+function removeAnimalWay4(start, end) {
+    let deletedAnimal = animals.slice(start, end)
+    return deletedAnimal
+}
+
+console.log(removeAnimalWay4(0, -1))
+console.log(removeAnimalWay4(1)) 
+
