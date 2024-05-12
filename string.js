@@ -129,3 +129,34 @@ console.log(check_education)
 console.log("Метод every: ")
 let check_age = users.every(person => person.age > 17) //Вернет true, если все элементы массива соответствуют условию
 console.log(check_age)
+
+
+/* Замена символом в строке */
+
+//Способ 1
+console.log("Замена символа в строке. Способ 1: ")
+function replaceCharacterWay1(replChar, newChar) {
+    //Если строка содержит введенный символ replChar, то заменит его на newChar
+    if (origStr.includes(replChar)) {
+        let result = origStr.replace(replChar, newChar)
+        return result
+    } else return 'Данная строка не содержит введенный фрагмент. Попробуйте снова.'
+} 
+
+console.log(replaceCharacterWay1('ю', 'Ю'))
+console.log(replaceCharacterWay1('JavaScript', 'Frontend'))
+
+//Способ 2
+console.log('Способ 2: ')
+function replaceCharacterWay2(replChar, newChar) {
+    if (replChar.length === 1) {
+        const result =  origStr.split('').map(character => character === replChar ? newChar : character).join('')
+        return result
+    }
+    const result =  origStr.split(' ').map(character => character === replChar ? newChar : character).join(' ')
+    return result
+}
+
+console.log(replaceCharacterWay2('ю', 'Ю'))
+console.log(replaceCharacterWay2('JavaScript', 'Frontend'))
+
