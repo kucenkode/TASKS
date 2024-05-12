@@ -155,7 +155,7 @@ function replaceCharacterWay2(replChar, newChar) {
             const result =  origStr.split('').map(character => character === replChar ? newChar : character).join('')
             return result
         }
-        //Если ввели строку
+        //Если ввели строку`
         const result =  origStr.split(' ').map(character => character === replChar ? newChar : character).join(' ')
         return result
     }
@@ -163,3 +163,31 @@ function replaceCharacterWay2(replChar, newChar) {
 
 console.log(replaceCharacterWay2('ю', 'Ю'))
 console.log(replaceCharacterWay2('JavaScript', 'Frontend'))
+
+/* Поиск индекса элемента в массиве */
+
+//Способ 1
+console.log("Поиск индекса элемента в массиве. Способ 1: ")
+let animals = ['cat', 'dog', 'parrot','horse']
+function getAnimalPositionWay1(target) {
+    if (animals.includes(target)) {
+        let index = animals.indexOf(target)
+        return index;
+    } else return 'Такого элемента нет!'
+}
+
+console.log(getAnimalPositionWay1('parrot'))
+console.log(getAnimalPositionWay2('crocodile'))
+
+//Способ 2
+console.log('Способ 2: ')
+function getAnimalPositionWay2(target) {
+    if (animals.includes(target)) {
+        let index = animals.findIndex(animal => animal == target)
+        return index
+    } else return 'Такого элемента нет!'
+}
+
+console.log(getAnimalPositionWay2('parrot'))
+console.log(getAnimalPositionWay2('tiger'))
+
