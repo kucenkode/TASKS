@@ -271,12 +271,13 @@ console.log(filterArrayByType('object'))
 console.log(filterArrayByType(10))
 
 /* Числа фибоначчи */
+//initValue - начальное значение для вычисления чисел фибоначчи. 
 function fibonacci(initValue, positionOfNumberToGet) {
     let fibonacciResult = [0, 1]
     for (let number = 2; number < initValue; number++) {
-        fibonacciResult[number] = fibonacciResult[number - 2] + fibonacciResult[number - 1]
+        fibonacciResult[number] = fibonacciResult[number - 2] + fibonacciResult[number - 1] //предыдущее значение + результат вычисления
     }
-    return `Числа фибоначчи: ${fibonacciResult} \nЧисло на позиции ${positionOfNumberToGet}: ${fibonacciResult[positionOfNumberToGet]}`
+    return `Числа фибоначчи: ${fibonacciResult} \nЧисло на позиции ${positionOfNumberToGet}: ${fibonacciResult[positionOfNumberToGet - 1]}`
 }
 
 console.log(fibonacci(10, 4))
