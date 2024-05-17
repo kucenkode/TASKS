@@ -269,3 +269,14 @@ console.log(filterArrayByType('string'))
 console.log(filterArrayByType('number'))
 console.log(filterArrayByType('object'))
 console.log(filterArrayByType(10))
+
+/* Числа фибоначчи */
+function fibonacci(initValue, positionOfNumberToGet) {
+    let fibonacciResult = [0, 1]
+    for (let number = 2; number < initValue; number++) {
+        fibonacciResult[number] = fibonacciResult[number - 2] + fibonacciResult[number - 1]
+    }
+    return `Числа фибоначчи: ${fibonacciResult} \nЧисло на позиции ${positionOfNumberToGet}: ${fibonacciResult[positionOfNumberToGet]}`
+}
+
+console.log(fibonacci(10, 4))
