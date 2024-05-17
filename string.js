@@ -273,6 +273,12 @@ console.log(filterArrayByType(10))
 /* Числа фибоначчи */
 //initValue - начальное значение для вычисления чисел фибоначчи. 
 function fibonacci(initValue, positionOfNumberToGet) {
+    if ((typeof(initValue) || typeof(positionOfNumberToGet)) !== 'number') {
+        return 'Некорректный ввод данных. Попробуйте снова.' 
+    }
+    else if ((initValue || positionOfNumberToGet) < 0) {
+        return 'Введите положительное значение!'
+    } 
     let fibonacciResult = [0, 1]
     for (let number = 2; number < initValue; number++) {
         fibonacciResult[number] = fibonacciResult[number - 2] + fibonacciResult[number - 1] //предыдущее значение + результат вычисления
@@ -281,3 +287,5 @@ function fibonacci(initValue, positionOfNumberToGet) {
 }
 
 console.log(fibonacci(10, 4))
+console.log(fibonacci('five', 4))
+console.log(fibonacci(-15, 4))
