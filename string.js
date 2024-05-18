@@ -289,3 +289,39 @@ function fibonacci(initValue, positionOfNumberToGet) {
 console.log(fibonacci(10, 4))
 console.log(fibonacci('five', 4))
 console.log(fibonacci(-15, 4))
+
+/* Вывод свойств и значений объекта */
+const person = {
+    firstName: 'Jack',
+    lastName: 'Sparrow',
+    age: 25,
+    location: 'Caribbean sea',
+}
+
+console.log("Вывод свойств и значений объекта. Вариант 1: ")
+function printObjectProperties(callback) {
+    for (let key in person) {
+        if (person.hasOwnProperty(key)) {
+            console.log(`${key}: ${person[key]}`)
+        }
+    }
+    console.log("Вариант 2: ")
+    callback()
+}
+
+function way2() {
+    // Изменим ключ 'location' на 'Where to find'
+    person['Where to find'] = person['location']
+    delete person['location']
+
+    // Заменим значение 'age' на '25 ages'
+    person['age'] = `${person['age']} ages`
+
+    // А теперь изменим ключи, чтобы они начинались с большой буквы
+    Object.entries(person).forEach(([key, value]) => {
+        const modifiedKey = key.charAt(0).toUpperCase() + key.slice(1)
+        console.log(`${modifiedKey}: ${value}`)
+    })
+}
+
+printObjectProperties(way2)
