@@ -7,19 +7,22 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-    <script src="string.js"></script>
+    <script src="js/consoleTasks.js" defer></script>
+    <script src="js/dropdownList.js" defer></script>
     <title>Test</title>
 </head>
 <body>
     <div class="wrapper">
         <h1>have a nice day :)</h1>
-        <button id="themeSelector"></button>
+        <div class = 'container_list_button'>
+            <button id="themeSelector"></button>
+        </div>  
     </div>
 
     <script>  
     let root = document.querySelector(":root");
     let button = document.querySelector("#themeSelector")
-    button.addEventListener('click', () => {
+    button.addEventListener('click', (event) => {
         event.preventDefault();
         root.classList.toggle('dark');
     })

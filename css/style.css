@@ -14,17 +14,19 @@ body {
 
 :root {
     --color1: #ffebfc;
-    --color2: #170013;
-    --button-color: black;
-    --button-image: url(../img/icons8-яркая-луна-80.png);
+    --color2: #000000;
+    --themeButton-color: #000000;
+    --themeButton-image: url(../img/icons8-яркая-луна-80.png);
+    --saveButton-color: #000000;
     color-scheme: light;
 }
 
 .dark {
     --color1: #121212;
     --color2: #ff98ec;
-    --button-color: #ff98ec;
-    --button-image: url(../img/icons8-солнце-64.png);
+    --themeButton-color: #ff98ec;
+    --themeButton-image: url(../img/icons8-солнце-64.png);
+    --saveButton-color: #ff98ec;
     color-scheme: dark;
 }
 
@@ -85,11 +87,13 @@ body {
 
 .wrapper {
     display: flex;
+    flex-direction: row;
     justify-content: center;
-    flex-direction: column;
+    flex-wrap: wrap;
     width: 100vw;
     height: 100vh;
     background-color: var(--color1);
+    align-content: space-around;
 }
 
 #themeSelector {
@@ -97,8 +101,8 @@ body {
     height: 80px;
     border: solid medium;
     border-radius: 50%;
-    background-color: var(--button-color);
-    background-image: var(--button-image);
+    background-color: var(--themeButton-color);
+    background-image: var(--themeButton-image);
     background-repeat: no-repeat;
     background-size: cover;
     margin: auto;
