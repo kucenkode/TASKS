@@ -1,21 +1,26 @@
 const parent = document.querySelector('.wrapper');
-const container_list_button = parent.querySelector('.container_list_button');
+
+const container_button = parent.querySelector('.container_button'); 
 const container_list = document.createElement('div');
 container_list.className = 'container_list';
+parent.appendChild(container_list);
+
+const container_dropdown_list = document.createElement('div');
+container_dropdown_list.className = 'container_dropdown_list';
 const list = document.createElement('select');
-container_list_button.appendChild(container_list);
-container_list.appendChild(list);
+container_dropdown_list.appendChild(list);
+container_list.appendChild(container_dropdown_list);
 
 const input = document.createElement('input');
 input.id = 'inputArea';
 const saveButton = document.createElement('button');
 saveButton.id = 'saveButton';
-saveButton.innerHTML = 'SAVE';
-container_list.appendChild(input);
-container_list.appendChild(saveButton);
-parent.appendChild(container_list);
+saveButton.textContent = 'Save';
+container_dropdown_list.appendChild(input);
+container_dropdown_list.appendChild(saveButton);
+container_list.appendChild(container_dropdown_list);
 
-function addListOption() {
+(function addListOption() {
     if (!input.value.trim()) {
         input.style.borderColor = 'red';
     } else {
@@ -24,7 +29,7 @@ function addListOption() {
         list.appendChild(option);
         input.value = '';
     }
-}
+}) ()
 
 list.addEventListener('mouseenter', () => {
     const select = document.querySelector('select');
@@ -33,18 +38,17 @@ list.addEventListener('mouseenter', () => {
 })
 
 function editListOption() {
-    list.querySelectorAll('option').value = 'targetValue';
+    list.querySelectorAll('option').value = input.value;
 }
 
 saveButton.addEventListener('click', editListOption)
 
-input.addEventListener('keydown', (event) => {
-    if (event.keyCode == 13) {
-        addListOption();
-    }
-})
+container_list.style = `
+    display: flex;
+    justify-content: row;
+`
 
-container_list_button.style = `
+container_button.style = `
     display: flex;
     flex-flow: row-reverse wrap;
     background-color: var(--color1);
@@ -55,7 +59,7 @@ container_list_button.style = `
     width: fill-available;
 `;
 
-container_list.style = `
+container_dropdown_list.style = `
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -92,5 +96,5 @@ saveButton.style = `
     background-color: var(--saveButton-color);
     color: var(--color1);
     font-family: 'Alegreya', serif;
-    font-size: calc(5px + 10 * (100vw / 1280)); 
+    font-size: calc(8px + 0.78125vw);
 `;
