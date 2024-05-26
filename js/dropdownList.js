@@ -1,100 +1,145 @@
 const parent = document.querySelector('.wrapper');
 
-const container_button = parent.querySelector('.container_button'); 
-const container_list = document.createElement('div');
-container_list.className = 'container_list';
-parent.appendChild(container_list);
+(function () {
+    //контейнер для списка
+    const container_button = parent.querySelector('.container_button'); 
+    const container_list = document.createElement('div');
+    container_list.className = 'container_list';
+    parent.appendChild(container_list);
 
-const container_dropdown_list = document.createElement('div');
-container_dropdown_list.className = 'container_dropdown_list';
-const list = document.createElement('select');
-container_dropdown_list.appendChild(list);
-container_list.appendChild(container_dropdown_list);
+    function switchTheme() {
+        let root = document.querySelector(":root");
+        let themeButton = document.querySelector("#themeSelector")
+        themeButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            root.classList.toggle('dark');
+        })
 
-const input = document.createElement('input');
-input.id = 'inputArea';
-const saveButton = document.createElement('button');
-saveButton.id = 'saveButton';
-saveButton.textContent = 'Save';
-container_dropdown_list.appendChild(input);
-container_dropdown_list.appendChild(saveButton);
-container_list.appendChild(container_dropdown_list);
+        return themeButton;
+    }
 
-(function addListOption() {
-    if (!input.value.trim()) {
-        input.style.borderColor = 'red';
-    } else {
+    function createDropdownList() {
+        //список (тег select)
+        const list = document.createElement('select');
+        list.id = 'dropdown_list_options';
+        container_list.appendChild(list);
+
+        list.style = `
+            width: 25vw;
+            height: 5vh;
+            margin: 5px;
+            border-radius: 15px;
+            background-color: var(--color2);
+            color: var(--color1);
+        `;
+
+        return list;
+    }
+
+    function createListItem() {
+        const input = document.querySelector('input');
+        const list = document.querySelector('select');
         const option = document.createElement('option');
+
         option.textContent = input.value;
         list.appendChild(option);
-        input.value = '';
     }
+
+    function todoForm() {
+        const form = document.createElement('form');
+        form.id = "dropdown_list_input";
+        const input = document.createElement('input');
+        input.placeholder = "What do you have to do?";
+        
+        //Кнопка сохранения
+        const saveButton = document.createElement('button');
+        saveButton.id = 'saveButton';
+        saveButton.textContent = 'Save';
+
+        //Добавляем на страницу
+        form.appendChild(input);
+        form.appendChild(saveButton);
+        container_list.appendChild(form);
+
+        form.style = `
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        `
+
+        input.style = `
+            width: 25vw;
+            height: 5vh;
+            margin: 5px;
+            padding: 2px;
+            border-radius: 15px;
+            background-color: #fff;
+            color: #000;
+        `;
+
+        saveButton.style = `
+            width: 10vw;
+            height: 5vh;
+            margin: 5px;
+            border: solid 2px;
+            border-radius: 15px;
+            background-color: var(--saveButton-color);
+            color: var(--color1);
+            font-family: 'Alegreya', serif;
+            font-size: calc(8px + 0.78125vw);
+        `;
+
+        return {
+            form,
+            input,
+            saveButton
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+        event.preventDefault();
+
+        const dropdownList = createDropdownList();
+        const formList = todoForm();
+        const theme = switchTheme();
+
+        //Добавляем на страницу
+        container_list.appendChild(dropdownList);
+        container_list.appendChild(formList.form);
+        container_button.appendChild(theme);
+
+        formList.form.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            if (!formList.input.value) {
+                formList.input.style.borderColor = 'red';
+                return;
+            } 
+
+            createListItem();
+            formList.input.value = '';
+        })
+
+        
+    })
+
+    container_list.style = `
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        margin: auto;
+        background-color: var(--color1);
+        align-items: center;
+    `;
+
+    container_button.style = `
+        display: flex;
+        flex-flow: row-reverse wrap;
+        background-color: var(--color1);
+        place-content: stretch space-evenly;
+        width: 100%;
+        width: -moz-available;         
+        width: -webkit-fill-available;  
+        width: fill-available;
+    `;
 }) ()
-
-list.addEventListener('mouseenter', () => {
-    const select = document.querySelector('select');
-    const editedOption = select.value;
-    input.value = editedOption;
-})
-
-function editListOption() {
-    list.querySelectorAll('option').value = input.value;
-}
-
-saveButton.addEventListener('click', editListOption)
-
-container_list.style = `
-    display: flex;
-    justify-content: row;
-`
-
-container_button.style = `
-    display: flex;
-    flex-flow: row-reverse wrap;
-    background-color: var(--color1);
-    place-content: stretch space-evenly;
-    width: 100%;
-    width: -moz-available;         
-    width: -webkit-fill-available;  
-    width: fill-available;
-`;
-
-container_dropdown_list.style = `
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    margin: auto;
-    background-color: var(--color1);
-    align-items: center;
-`;
-
-list.style = `
-    width: 25vw;
-    height: 5vh;
-    margin: 5px;
-    border-radius: 15px;
-    background-color: var(--color2);
-    color: var(--color1);
-`;
-
-input.style = `
-    width: 25vw;
-    height: 5vh;
-    margin: 5px;
-    padding: 2px;
-    border-radius: 15px;
-    background-color: #fff;
-    color: #000;
-`;
-
-saveButton.style = `
-    width: 10vw;
-    height: 5vh;
-    margin: 5px;
-    border: solid 2px;
-    border-radius: 15px;
-    background-color: var(--saveButton-color);
-    color: var(--color1);
-    font-family: 'Alegreya', serif;
-    font-size: calc(8px + 0.78125vw);
-`;
