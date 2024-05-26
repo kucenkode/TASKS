@@ -19,11 +19,11 @@ const parent = document.querySelector('.wrapper');
     }
 
     function createDropdownList() {
-        //список (тег select)
+        // список (тег select)
         const list = document.createElement('select');
         list.id = 'dropdown_list_options';
         container_list.appendChild(list);
-
+    
         list.style = `
             width: 25vw;
             height: 5vh;
@@ -36,11 +36,8 @@ const parent = document.querySelector('.wrapper');
         return list;
     }
 
-    function createListItem() {
-        const input = document.querySelector('input');
-        const list = document.querySelector('select');
+    function createListItem(input, list) {
         const option = document.createElement('option');
-
         option.textContent = input.value;
         list.appendChild(option);
     }
@@ -98,11 +95,11 @@ const parent = document.querySelector('.wrapper');
 
     document.addEventListener('DOMContentLoaded', (event) => {
         event.preventDefault();
-
+        
         const dropdownList = createDropdownList();
         const formList = todoForm();
         const theme = switchTheme();
-
+  
         //Добавляем на страницу
         container_list.appendChild(dropdownList);
         container_list.appendChild(formList.form);
@@ -110,36 +107,47 @@ const parent = document.querySelector('.wrapper');
 
         formList.form.addEventListener('submit', (event) => {
             event.preventDefault();
-
             if (!formList.input.value) {
                 formList.input.style.borderColor = 'red';
                 return;
-            } 
-
-            createListItem();
+            }
+            formList.input.style.borderColor = '';
+            createListItem(formList.input, dropdownList);
             formList.input.value = '';
-        })
+        });
 
-        
-    })
+        dropdownList.addEventListener('change', (event) => {
+            event.preventDefault();
+            const selectedOption = dropdownList.options[dropdownList.selectedIndex];
+            formList.input.value = selectedOption.textContent;
+            
+            formList.saveButton.addEventListener('click', (event) => {
+                event.preventDefault();
+                if (formList.input.value) {
+                    dropdownList.options[dropdownList.selectedIndex].textContent = formList.input.value;
+                    formList.input.value = '';
+                }
+            });
+        });
 
-    container_list.style = `
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        margin: auto;
-        background-color: var(--color1);
-        align-items: center;
-    `;
+        container_list.style = `
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            margin: auto;
+            background-color: var(--color1);
+            align-items: center;
+        `;
 
-    container_button.style = `
-        display: flex;
-        flex-flow: row-reverse wrap;
-        background-color: var(--color1);
-        place-content: stretch space-evenly;
-        width: 100%;
-        width: -moz-available;         
-        width: -webkit-fill-available;  
-        width: fill-available;
-    `;
+        container_button.style = `
+            display: flex;
+            flex-flow: row-reverse wrap;
+            background-color: var(--color1);
+            place-content: stretch space-evenly;
+            width: 100%;
+            width: -moz-available;         
+            width: -webkit-fill-available;  
+            width: fill-available;
+        `;
+    });
 }) ()
