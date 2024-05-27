@@ -1,7 +1,4 @@
-/*const container_list = document.querySelector('.container_list');
-
 (function () {
-    //Задание 3
     function createStudentsList() {
         let allStudents = [
             {name: 'Валя', age: 11},
@@ -9,32 +6,36 @@
             {name: 'Рома', age: 21},
             {name: 'Надя', age: 34},
             {name: 'Антон', age: 7}
-        ];
-    
+        ]
+
+        let containerStudentsList = document.createElement('div');
+        containerStudentsList.id = 'containerStudentsList';
+
+        containerStudentsList.style = `
+            display: flex;
+            text-align: justify;
+            line-height: 0.9;
+        `;
+
         let studentsList = document.createElement('ul');
-        for (let i = 0; i < allStudents.length; i++) {
+        studentsList.style.listStyleType = 'none';
+        for (let student = 0; student < allStudents.length; student++) {
             let studentInformation = document.createElement('li');
-            studentInformation.innerHTML = `<h2>${allStudents[i].name}</h2>` + `<span>Возраст: ${allStudents[i].age} лет</span>`;
+            studentInformation.innerHTML = `<h2>${allStudents[student].name}</h2>` + `<span>Возраст: ${allStudents[student].age} лет</span>`;
             studentsList.appendChild(studentInformation);
-    
         }
-        return studentsList;
+        containerStudentsList.appendChild(studentsList);
+
+        return containerStudentsList;
     }
-    
-    //Задание 4
-    function createShowStudentsButton() {
-        let button_container = document.createElement('div');
-        let showStudentsButton = document.createElement('button');
-        let saveButton = document.querySelector('#saveButton');
- 
-        showStudentsButton.textContent = 'Show students';
-    
-        //Группируем кнопку сохранения и кнопку для вывода информации о студентах
-        button_container.appendChild(saveButton);
-        button_container.appendChild(showStudentsButton);
-        container_list.appendChild(button_container);
-        
-        showStudentsButton.style = `
+
+    function createShowStudentsInfoButton() {
+        let buttonsGroup = document.querySelector('#saveAndShowStudentsInfoButtons');
+        let ShowStudentsInfoButton = document.createElement('button');
+        ShowStudentsInfoButton.id = 'ShowStudentsInfoButton';
+        ShowStudentsInfoButton.textContent = 'Show students';
+
+        ShowStudentsInfoButton.style = `
             width: 10vw;
             height: 5vh;
             margin: 5px;
@@ -44,33 +45,32 @@
             color: var(--color1);
             font-family: 'Alegreya', serif;
             font-size: calc(8px + 0.78125vw);
-        `;
-    
-        return {
-            showStudentsButton,
-            saveButton
-        }
+        `
+
+        buttonsGroup.appendChild(ShowStudentsInfoButton);
+        return ShowStudentsInfoButton;
     }
-    
 
-    document.addEventListener('DOMContentLoaded', () => {
-        const createStudList = createStudentsList();
-        const createButton = createShowStudentsButton();
+    document.addEventListener('DOMContentLoaded', (event) => {
+        event.preventDefault();
 
-        parent.appendChild(createStudList);
-        parent.appendChild(createButton.showStudentsButton);
+        const studentInformationList = createStudentsList();
+        const studentInformationButton = createShowStudentsInfoButton();
 
-
-        createButton.addEventListener('click', (event) => {
+        let container_list = document.querySelector('.container_list');
+        container_list.appendChild(studentInformationList);
+        
+        studentInformationList.style.display = 'none';
+        studentInformationButton.addEventListener('click', (event) => {
             event.preventDefault();
-            if (createStudList.studentsList.style.display === 'none') {
-                createStudList.studentsList.style.display = 'block';
-                showStudentsInfo.textContent = 'Hide students';
-            } else {
-                createStudList.studentsList.style.display = 'none';
-                showStudentsInfo.textContent = 'Show students';
-            }
-        })
-    })
-}) */
 
+            if (studentInformationList.style.display === 'none') {
+                studentInformationList.style.display = 'block';
+                studentInformationButton.textContent = 'Hide students';
+            } else {
+                studentInformationList.style.display = 'none';
+                studentInformationButton.textContent = 'Show students';
+            }
+        });
+    });
+}) ()

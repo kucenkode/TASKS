@@ -49,13 +49,16 @@ const parent = document.querySelector('.wrapper');
         input.placeholder = "What do you have to do?";
         
         //Кнопка сохранения
+        const buttonsGroup = document.createElement('div');
+        buttonsGroup.id = 'saveAndShowStudentsInfoButtons';
         const saveButton = document.createElement('button');
         saveButton.id = 'saveButton';
         saveButton.textContent = 'Save';
+        buttonsGroup.appendChild(saveButton);
 
         //Добавляем на страницу
         form.appendChild(input);
-        form.appendChild(saveButton);
+        form.appendChild(buttonsGroup);
         container_list.appendChild(form);
 
         form.style = `
@@ -129,7 +132,7 @@ const parent = document.querySelector('.wrapper');
                 }
             });
         });
-
+        
         container_list.style = `
             display: flex;
             justify-content: center;
