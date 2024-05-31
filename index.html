@@ -9,18 +9,20 @@
     <link href="css/style.css" rel="stylesheet">
     <script src="js/consoleTasks.js" defer></script>
     <script src="js/dropdownList.js" defer></script>
-    <!--<script src="js/tasks_skillbox.js" defer></script>  -->
+    <script src="js/tasks_skillbox.js" defer></script> 
     <title>Test</title>
 </head>
 <body>
     <div class="wrapper">
         <h1>have a nice day :)</h1>
-        <div id="switchThemeAndShowStudentsInfoButtons"> 
+        <div id="containerSwitchThemeButton"> 
             <button id="themeSelector"></button>
-
         </div>
-        
-        <div id="containerList"> 
+        <div id="containerStudentsList"> 
+            <button id="ShowStudentsInfoButton"> Show students </button>
+            <ul id="studentsList" style="list-style-type: none;"></ul>
+        </div>
+        <div id="containerDropdownList"> 
             <select id="dropdownListOptions"> 
                 <option> Banana </option>
                 <option> Milk </option>

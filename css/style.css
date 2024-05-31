@@ -17,6 +17,8 @@ body {
     --color1: #ffebfc;
     --color2: #000000;
     --themeButton-color: #000000;
+    --studentsInfo-color: #ff98ec;
+    --studentsInfoText-color: #121212;
     --themeButton-image: url(../img/icons8-яркая-луна-80.png);
     --saveButton-color: #000000;
     color-scheme: light;
@@ -26,6 +28,8 @@ body {
     --color1: #121212;
     --color2: #ff98ec;
     --themeButton-color: #ff98ec;
+    --studentsInfo-color: #ffebfc;
+    --studentsInfoText-color: #640650;
     --themeButton-image: url(../img/icons8-солнце-64.png);
     --saveButton-color: #ff98ec;
     color-scheme: dark;
@@ -112,11 +116,9 @@ body {
 }
 
 .wrapper {
-    display: flex;
+    display: grid;
+    grid-template-rows: 10% 10% 25% 25%;
     margin: auto;
-    flex-direction: row;
-    justify-content: center;
-    flex-wrap: wrap;
     width: 1728px;
     max-width: 100%;
     height: 100vh;
@@ -133,7 +135,6 @@ body {
     background-image: var(--themeButton-image);
     background-repeat: no-repeat;
     background-size: cover;
-    margin: auto;
 }
 
 h1 {
@@ -180,7 +181,7 @@ input {
     font-size: calc(8px + 0.78125vw);
 }
 
-#containerList {
+#containerDropdownList {
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -189,13 +190,60 @@ input {
     align-items: center;
 }
 
-#switchThemeAndShowStudentsInfoButtons {
-    display: flex;
-    flex-flow: row-reverse wrap;
+#containerSwitchThemeButton {
+    margin: auto;
     background-color: var(--color1);
-    place-content: stretch space-evenly;
-    width: 100%;
-    width: -moz-available;         
-    width: -webkit-fill-available;  
-    width: fill-available;
+}
+
+#containerStudentsList {
+    display: inline-grid;
+    grid-template-rows: 30% 50%;
+    text-align: justify;
+    line-height: 0.9;
+    align-items: center;
+    justify-content: center;
+    align-content: space-between;
+    justify-items: center;
+}
+
+#ShowStudentsInfoButton {
+    width: 13vw;
+    height: 5vh;
+    margin: 5px;
+    border: solid 2px;
+    border-radius: 15px;
+    background-color: var(--saveButton-color);
+    color: var(--color1);
+    font-family: 'Alegreya', serif;
+    font-size: calc(8px + 0.78125vw);
+}
+
+#studentsList {
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    padding: 0;
+}
+
+#studentsList li {
+    flex: 0 1 calc(20% - 10px); 
+    margin: 10px; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
+    padding: 8px;
+    padding-top: 0px;
+    border-radius: 15px; 
+    background-color: var(--studentsInfo-color);
+    opacity: 0.9;
+}
+
+#studentsList h2 {
+    font-size: 1em; 
+    font-weight: 700;
+    color: var(--studentsInfoText-color);
+}
+
+#studentsList span {
+    font-size: 0.8em; 
+    font-weight: 500;
+    color: var(--studentsInfoText-color); 
 }

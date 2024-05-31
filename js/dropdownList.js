@@ -37,7 +37,7 @@ const parent = document.querySelector('.wrapper');
 
     function alertIfOptionWasntChanged() {
         input.style.borderColor = '#F36223';
-           
+        
         const message = document.createElement('span');
         message.id = "alertNoChanges";
         message.textContent = "nothing has been changed";
