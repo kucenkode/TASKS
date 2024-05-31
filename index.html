@@ -9,15 +9,29 @@
     <link href="css/style.css" rel="stylesheet">
     <script src="js/consoleTasks.js" defer></script>
     <script src="js/dropdownList.js" defer></script>
-    <script src="js/tasks_skillbox.js" defer></script>  
+    <!--<script src="js/tasks_skillbox.js" defer></script>  -->
     <title>Test</title>
 </head>
 <body>
     <div class="wrapper">
         <h1>have a nice day :)</h1>
-        <div class = 'container_button'>
+        <div id="switchThemeAndShowStudentsInfoButtons"> 
             <button id="themeSelector"></button>
-        </div>  
+
+        </div>
+        
+        <div id="containerList"> 
+            <select id="dropdownListOptions"> 
+                <option> Banana </option>
+                <option> Milk </option>
+                <option> Sugar </option>
+            </select>
+
+            <form id="editOption">
+                <input type="text" placeholder="edit option here..." id="editOptionInput"> 
+                <button type="submit" id="saveEditedOption"> Save </button>
+            </form>
+        </div>
     </div>
 </body>
 </html>

@@ -142,3 +142,60 @@ h1 {
     text-transform: uppercase;
     font-size: calc(18px + 16 * (100vw / 1280));
 }
+
+#dropdownListOptions {
+    width: 25vw;
+    height: 5vh;
+    margin: 5px;
+    border-radius: 15px;
+    background-color: var(--color2);
+    color: var(--color1);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input {
+    width: 25vw;
+    height: 5vh;
+    margin: 5px;
+    padding: 2px;
+    border-radius: 15px;
+    background-color: #fff;
+    color: #000;
+}
+
+#saveEditedOption {
+    width: 10vw;
+    height: 5vh;
+    margin: 5px;
+    border: solid 2px;
+    border-radius: 15px;
+    background-color: var(--saveButton-color);
+    color: var(--color1);
+    font-family: 'Alegreya', serif;
+    font-size: calc(8px + 0.78125vw);
+}
+
+#containerList {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: auto;
+    background-color: var(--color1);
+    align-items: center;
+}
+
+#switchThemeAndShowStudentsInfoButtons {
+    display: flex;
+    flex-flow: row-reverse wrap;
+    background-color: var(--color1);
+    place-content: stretch space-evenly;
+    width: 100%;
+    width: -moz-available;         
+    width: -webkit-fill-available;  
+    width: fill-available;
+}
