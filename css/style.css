@@ -6,6 +6,13 @@ html {
     box-sizing: inherit;
 }
 
+* {
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
 body {
     margin: 0;
     font-family: 'Alegreya', serif;
@@ -49,6 +56,22 @@ body {
         width: 35px;
         height: 35px;
     }
+    body #ShowStudentsInfoButton {
+        width: 25vw;
+    }
+    body #saveEditedOption {
+        width: 25vw;
+    }
+    body input {
+        width: 30vw;
+    }
+    body #dropdownListOptions {
+        width: 30vw;
+    }
+    body .addingStudent {
+        flex: 0 1 calc(60%); 
+        font-size: 0.6em;
+    }
 }
 
 @media screen and (min-width: 500px) and (max-width: 700px) {
@@ -64,6 +87,10 @@ body {
     body #themeSelector {
         width: 50px;
         height: 50px;
+    }
+    body #ShowStudentsInfoButton {
+        width: 25vw;
+        height: 6vh;
     }
 }
 
@@ -178,7 +205,8 @@ input {
     background-color: var(--saveButton-color);
     color: var(--color1);
     font-family: 'Alegreya', serif;
-    font-size: calc(8px + 0.78125vw);
+    font-size: calc(10px + 0.78125vw);
+    font-weight: 500;
 }
 
 #containerDropdownList {
@@ -199,7 +227,7 @@ input {
     display: inline-grid;
     grid-template-rows: 30% 50%;
     text-align: justify;
-    line-height: 0.9;
+    line-height: 0.35;
     align-items: center;
     justify-content: center;
     align-content: space-between;
@@ -207,15 +235,16 @@ input {
 }
 
 #ShowStudentsInfoButton {
-    width: 13vw;
-    height: 5vh;
+    width: 15vw;
+    height: 6vh;
     margin: 5px;
     border: solid 2px;
     border-radius: 15px;
     background-color: var(--saveButton-color);
     color: var(--color1);
     font-family: 'Alegreya', serif;
-    font-size: calc(8px + 0.78125vw);
+    font-size: calc(10px + 0.78125vw);
+    font-weight: 500;
 }
 
 #studentsList {
@@ -237,13 +266,34 @@ input {
 }
 
 #studentsList h2 {
-    font-size: 1em; 
     font-weight: 700;
     color: var(--studentsInfoText-color);
 }
 
 #studentsList span {
-    font-size: 0.8em; 
     font-weight: 500;
     color: var(--studentsInfoText-color); 
+}
+
+.addStudent {
+    margin: 10px; 
+    width: 43.8125px;
+    height: 43.8125px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
+    padding: 8px;
+    border-color: var(--studentsInfo-color);
+    background-color: var(--studentsInfo-color);
+    opacity: 0.9;
+    font-size: medium;
+    color: var(--studentsInfoText-color);
+
+    &:hover {
+        background-color: #ff7fe7;
+    }
+}
+
+.addingStudent {
+    flex: 0 1 calc(35% - 10px); 
+    border-radius: 15px; 
+    font-size: 0.8em;
 }
