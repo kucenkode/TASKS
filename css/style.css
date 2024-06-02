@@ -44,7 +44,7 @@ body {
 
 @media screen and (max-width: 500px) {
     body h1 { 
-        font-size: calc(10px + 16 * (100vw / 1280)); 
+        font-size: calc(15px + 16 * (100vw / 1280)); 
     } 
     body h2 {
         font-size: calc(6px + 16 * (100vw / 1280));
@@ -53,8 +53,8 @@ body {
         font-size: calc(4px + 0.78125vw);
     }
     body #themeSelector {
-        width: 35px;
-        height: 35px;
+        width: 48px;
+        height: 48px;
     }
     body #ShowStudentsInfoButton {
         width: 25vw;
@@ -68,38 +68,42 @@ body {
     body #dropdownListOptions {
         width: 30vw;
     }
-    body .addingStudent {
-        flex: 0 1 calc(60%); 
-        font-size: 0.6em;
+    body .addStudent {
+        width: 38px;
+        height: 38px;
     }
 }
 
 @media screen and (min-width: 500px) and (max-width: 700px) {
     body h1 { 
-        font-size: calc(12px + 16 * (100vw / 1280)); 
+        font-size: calc(15px + 16 * (100vw / 1280)); 
     }
     body h2 {
-        font-size: calc(6px + 0.78125vw);
-    }
-    body span {
         font-size: calc(4px + 0.78125vw);
     }
+    body span {
+        font-size: calc(2px + 0.78125vw);
+    }
     body #themeSelector {
-        width: 50px;
-        height: 50px;
+        width: 55px;
+        height: 55px;
     }
     body #ShowStudentsInfoButton {
         width: 25vw;
         height: 6vh;
     }
+    body .addStudent {
+        width: 38px;
+        height: 38px;
+    }
 }
 
 @media screen and (min-width: 700px) and (max-width: 1200px) {
     body h1 { 
-        font-size: calc(16px + 16 * (100vw / 1280)); 
+        font-size: calc(5px + 16 * (100vw / 1280)); 
     }
     body h2 {
-        font-size: calc(6px + 0.78125vw);
+        font-size: calc(2.5px + 0.78125vw);
     }
     body span {
         font-size: calc(4px + 0.78125vw);
@@ -107,6 +111,10 @@ body {
     body #themeSelector {
         width: 55px;
         height: 55px;
+    }
+    body .addStudent {
+        width: 40px;
+        height: 40px;
     }
 }
 
@@ -118,11 +126,15 @@ body {
         font-size: calc(6px + 0.78125vw);
     }
     body span {
-        font-size: calc(4px + 0.78125vw);
+        font-size: calc(3px + 0.78125vw);
     }
     body #themeSelector {
         width: 60px;
         height: 60px;
+    }
+    body .addStudent {
+        width: 50px;
+        height: 50px;
     }
 }
 
@@ -131,26 +143,30 @@ body {
         font-size: calc(20px + 16 * (100vw / 1280)); 
     }
     body h2 {
-        font-size: calc(6px + 0.78125vw);
+        font-size: calc(7px + 0.78125vw);
     }
     body span {
-        font-size: calc(4px + 0.78125vw);
+        font-size: calc(4.5px + 0.78125vw);
     }
     body #themeSelector {
         width: 90px;
         height: 90px;
     }
+    body .addStudent {
+        width: 55px;
+        height: 55px;
+    }
 }
 
 .wrapper {
     display: grid;
-    grid-template-rows: 10% 10% 25% 25%;
+    grid-template-rows: 10% 10% 30% 25%;;
     margin: auto;
     width: 1728px;
-    max-width: 100%;
+    max-width: 95%;
     height: 100vh;
     background-color: var(--color1);
-    align-content: space-around;
+    align-content: space-evenly;
 }
 
 #themeSelector {
@@ -225,13 +241,11 @@ input {
 
 #containerStudentsList {
     display: inline-grid;
-    grid-template-rows: 30% 50%;
+    grid-template-rows: 30% 70%;
     text-align: justify;
     line-height: 0.35;
-    align-items: center;
-    justify-content: center;
-    align-content: space-between;
     justify-items: center;
+    justify-content: center;
 }
 
 #ShowStudentsInfoButton {
@@ -248,19 +262,19 @@ input {
 }
 
 #studentsList {
-    display: flex;
-    flex-wrap: wrap;
     list-style-type: none;
-    padding: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
 }
 
 #studentsList li {
-    flex: 0 1 calc(20% - 10px); 
-    margin: 10px; 
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
+    margin: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     padding: 8px;
-    padding-top: 0px;
-    border-radius: 15px; 
+    border-radius: 15px;
     background-color: var(--studentsInfo-color);
     opacity: 0.9;
 }
@@ -277,14 +291,13 @@ input {
 
 .addStudent {
     margin: 10px; 
-    width: 43.8125px;
-    height: 43.8125px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
     padding: 8px;
     border-color: var(--studentsInfo-color);
     background-color: var(--studentsInfo-color);
     opacity: 0.9;
-    font-size: medium;
+    font-size: calc(2px + 0.78125vw);
+    font-weight: 500;
     color: var(--studentsInfoText-color);
 
     &:hover {
@@ -293,7 +306,13 @@ input {
 }
 
 .addingStudent {
-    flex: 0 1 calc(35% - 10px); 
+    flex: 0 1 calc(60% - 10px); 
     border-radius: 15px; 
-    font-size: 0.8em;
+    font-size: calc(2px + 0.78125vw);
+}
+
+.deleteStudent {
+    color: var(--studentsInfoText-color);
+    opacity: 0.5;
+    float: right;
 }

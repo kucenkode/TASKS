@@ -1,115 +1,107 @@
 (function () {
+    const studentsList = document.querySelector('#studentsList');
+
     function createStudentsList() {
         let allStudents = [
-            { name: 'Валя', age: 11 },
-            { name: 'Таня', age: 24 },
-            { name: 'Рома', age: 21 },
-            { name: 'Надя', age: 34 },
-            { name: 'Антон', age: 7 }
-        ]
+            { name: 'Valya', age: 11 },
+            { name: 'Tanya', age: 24 },
+            { name: 'Roma', age: 21 },
+            { name: 'Nadya', age: 34 },
+            { name: 'Anton', age: 7 }
+        ];
 
         studentsList.style.display = 'none';
-        for (let student = 0; student < allStudents.length; student++) {
+        allStudents.forEach(student => {
             let studentInformation = document.createElement('li');
-            studentInformation.innerHTML = `<h2>${allStudents[student].name}</h2>` + `<span>Возраст: ${allStudents[student].age} лет</span>`;
+            studentInformation.innerHTML = `<span class="deleteStudent">&#10006;</span>` +
+                                    `<h2>${student.name}</h2>` +
+                                    `<span>Age: ${student.age} years</span>`;
             studentsList.appendChild(studentInformation);
-        }
-
-        const addStudent = document.createElement('input');
-        addStudent.type = 'button';
-        addStudent.className = 'addStudent';
-        addStudent.value = '+';
-
-        return {
-            studentsList,
-            addStudent
-        };
-    };
-
-    function addStudentToList() {
-        const addStudentButton = document.querySelector(".addStudent");
-
-        addStudentButton.classList.toggle('addingStudent');
-        if (addStudentButton.type === 'button') {
-            addStudentButton.type = 'text';
-            addStudentButton.value = '';
-            addStudentButton.placeholder = 'Enter the student\'s name and age here...';
-        } else {
-            addStudentButton.value = '+';
-            addStudentButton.type = 'button';
-        };
-
-        addStudentButton.addEventListener('keydown', (event) => {
-            let messageIsShown = false;
-            if (event.keyCode === 13) {
-                event.preventDefault();
-                if (addStudentButton.value.trim() === 0) {
-                    addStudentButton.style.borderColor = 'red';
-                    return;
-                }
-                const newStudent = addStudentButton.value.split(' ');
-                let name, age;
-
-                if (!isNaN(newStudent[0]) && isNaN(newStudent[1])) {
-                    name = newStudent[1];
-                    age = newStudent[0];
-                } else if (isNaN(newStudent[0]) && !isNaN(newStudent[1])) {
-                    name = newStudent[0];
-                    age = newStudent[1];
-                } else {
-                    addStudentButton.style.borderColor = 'red';
-                    const message = document.createElement('span');
-                    message.id = "alertIncorrectInput";
-                    message.textContent = "Please enter name and age of student!";
-                    message.style.color = 'red';
-                    document.querySelector('#containerStudentsList').appendChild(message, addStudentButton);
-                    messageIsShown = true;
-                    return;
-                }
-                const studentInformation = document.createElement('li');
-                studentInformation.innerHTML = `<h2>${name}</h2>` + `<span>Возраст: ${age} лет</span>`;
-                document.querySelector('#studentsList').insertBefore(studentInformation, addStudentButton);
-                addStudentButton.value = "";
-                addStudentButton.style.borderColor = "";
-
-                if (messageIsShown) {
-                    document.querySelector("#alertIncorrectInput").remove();
-                    messageIsShown = false;
-                };
-            };
         });
-    };
+
+        const addStudentButton = document.createElement('input');
+        addStudentButton.type = 'button';
+        addStudentButton.className = 'addStudent';
+        addStudentButton.value = '+';
+        studentsList.appendChild(addStudentButton);
+    }
+
+    function alertIncorrectInput() {
+        if (!document.querySelector('.alertIncorrectInput')) {
+            const message = document.createElement('span');
+            message.className = "alertIncorrectInput";
+            message.textContent = "Please enter the student's name and age!";
+            message.style.color = 'red';
+            message.style.position = 'relative'; 
+            message.style.margin = '20px';
+            document.querySelector('#containerStudentsList').appendChild(message);
+        }
+    }
+
+    function addStudentToList(name, age) {
+        const studentInformation = document.createElement('li');
+        studentInformation.innerHTML = `<span class="deleteStudent">&#10006;</span>` +
+                                `<h2>${name}</h2>` +
+                                `<span>Age: ${age} years</span>`;
+        studentsList.insertBefore(studentInformation, document.querySelector('.addStudent'));
+    }
+
+    function toggleClasses(button) {
+        button.classList.toggle('addingStudent');
+        if (button.type === 'button') {
+            button.type = 'text';
+            button.value = '';
+            button.placeholder = 'Enter the student\'s name and age...';
+        } else {
+            button.value = '+';
+            button.type = 'button';
+        }
+    }
 
     function showStudentsInformation() {
-        const studentInformationButton = document.querySelector("#ShowStudentsInfoButton");
-        const studentsList = document.querySelector("#studentsList");
+        studentsList.style.display = studentsList.style.display === 'none' ? 'flex' : 'none';
+        document.querySelector("#ShowStudentsInfoButton").textContent =
+            studentsList.style.display === 'flex' ? 'Hide Students' : 'Show Students';
+    }
 
-        if (studentsList.style.display === 'none') {
-            studentsList.style.display = 'flex';
-            studentInformationButton.textContent = 'Hide students';
-        } else {
-            studentsList.style.display = 'none';
-            studentInformationButton.textContent = 'Show students';
-        };
-    };
+    function deleteStudent(event) {
+        if (event.target.className === 'deleteStudent') {
+            event.target.closest('li').remove();
+        }
+    }
 
     document.addEventListener('DOMContentLoaded', () => {
-        const showStudentInformationButton = document.querySelector("#ShowStudentsInfoButton");
-        const studentsList = document.querySelector('#studentsList');
-        const containerStudentsList = document.querySelector('#containerStudentsList');
+        createStudentsList();
+        studentsList.addEventListener('click', deleteStudent);
 
-        const createList = createStudentsList();
-        containerStudentsList.appendChild(createList.studentsList);
-        studentsList.appendChild(createList.addStudent);
-
-        showStudentInformationButton.addEventListener('click', (event) => {
+        document.querySelector("#ShowStudentsInfoButton").addEventListener('click', (event) => {
             event.preventDefault();
             showStudentsInformation();
         });
 
-        createList.addStudent.addEventListener('click', (event) => {
+        document.querySelector('.addStudent').addEventListener('click', (event) => {
             event.preventDefault();
-            addStudentToList();
+            toggleClasses(event.target);
+            const errorMessage = document.querySelector('.alertIncorrectInput');
+            if (errorMessage) {
+                errorMessage.remove();
+            };
+        });
+
+        document.querySelector('.addStudent').addEventListener('keydown', (event) => {
+            if (event.keyCode === 13 && event.target.type === 'text') {
+                const input = event.target.value.trim().split('');
+                if (input.length === 2 && !isNaN(input[1])) {
+                    addStudentToList(input[0], input[1]);
+                    event.target.value = '';
+                    const errorMessage = document.querySelector('.alertIncorrectInput');
+                    if (errorMessage) {
+                        errorMessage.remove();
+                    }
+                } else {
+                    alertIncorrectInput();
+                };
+            };
         });
     });
-}) ()
+})();
