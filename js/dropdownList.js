@@ -30,6 +30,10 @@ const parent = document.querySelector('.wrapper');
             selectedOption.textContent = input.value;
             selectedOption.value = input.value;
             input.style.borderColor = '';
+            const errorMessageNoTextEntered = document.querySelector('#alertNoTextEntered');
+            if(errorMessageNoTextEntered) errorMessageNoTextEntered.remove();
+            const errorMessageNoChange = document.querySelector('#alertNoChanges');
+            if(errorMessageNoChange) errorMessageNoChange.remove();
         } else {
             input.style.borderColor = 'red';
         };
@@ -47,14 +51,16 @@ const parent = document.querySelector('.wrapper');
     };
 
     function alertIfNothingWasEntered() {
-        input.style.borderColor = 'red';
+        if (!document.querySelector('#alertNoTextEntered')) {
+            input.style.borderColor = 'red';
         
-        const message = document.createElement('span');
-        message.id = "alertNoTextEntered";
-        message.textContent = "empty!";
-        message.style.color = 'red';
+            const message = document.createElement('span');
+            message.id = "alertNoTextEntered";
+            message.textContent = "empty!";
+            message.style.color = 'red';
 
-        input.parentNode.appendChild(message);
+            input.parentNode.appendChild(message);
+        };
     };
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -65,10 +71,17 @@ const parent = document.querySelector('.wrapper');
             const selectedOption = dropdownList.options[dropdownList.selectedIndex];
             if (selectedOption.value === input.value) {
                 if (!messageIsShown) {
+                    const errorMessageNoTextEntered = document.querySelector('#alertNoTextEntered');
+                    if(errorMessageNoTextEntered) errorMessageNoTextEntered.remove();
                     alertIfOptionWasntChanged();
                     messageIsShown = true;
                 }
-            } else {
+            } else if (input.value.trim().length === 0) {
+                const errorMessageNoChange = document.querySelector('#alertNoChanges');
+                if(errorMessageNoChange) errorMessageNoChange.remove();
+                alertIfNothingWasEntered();
+            }
+            else {
                 editDropdownListOption(); 
                 if (messageIsShown) {
                     document.querySelector("#alertNoChanges").remove();
