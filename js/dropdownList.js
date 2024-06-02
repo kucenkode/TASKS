@@ -62,8 +62,8 @@ const parent = document.querySelector('.wrapper');
                 if (messageIsShown) {
                     document.querySelector("#alertNoChanges").remove();
                     messageIsShown = false;
-                }
-            }
+                };
+            };
         });
     });
 })();

@@ -34,45 +34,85 @@
             message.textContent = "Please enter the student's name and age!";
             message.style.color = 'red';
             message.style.margin = '20px';
+
             containerStudentsList.style.gridTemplateRows = '30% 60% 25%';
             containerStudentsList.style.justifyContent = 'initial';
             containerStudentsList.style.alignItems = 'center';
+            
             document.querySelector('#containerStudentsList').appendChild(message);
         }
     }
 
+    function alertIfStudentExists() {
+        const containerStudentsList = document.querySelector('#containerStudentsList');
+        if (!document.querySelector('#alertStudentExists')) {
+            const addStudentButton = document.querySelector('.addStudent');
+            addStudentButton.borderColor = '#F36223';
+            
+            const message = document.createElement('span');
+            message.id = "alertStudentExists";
+            message.textContent = "the student is on the list!";
+            message.style.color = '#F36223';
+
+            containerStudentsList.style.gridTemplateRows = '30% 60% 25%';
+            containerStudentsList.style.justifyContent = 'initial';
+            containerStudentsList.style.alignItems = 'center';
+            
+            document.querySelector('#containerStudentsList').appendChild(message);
+        };
+    };
+
+    function alertsRemove() {
+        const errorMessageIncorrectInput = document.querySelector('.alertIncorrectInput');
+        const errorMessageStudentExists = document.querySelector('#alertStudentExists');
+        if (errorMessageIncorrectInput) errorMessageIncorrectInput.remove();
+        else if(errorMessageStudentExists) errorMessageStudentExists.remove();
+    };
+
     function addStudentToList() {
-        const studentInformation = document.createElement('li');
-        const studentInfo = document.querySelector('.addStudent').value.replaceAll(' ', '');
-    
+        const addStudentButton = document.querySelector('.addStudent');
+        const studentInfo = addStudentButton.value;
         let name = '';
         let age = '';
+    
         for (let i = 0; i < studentInfo.length; i++) {
             const charCode = studentInfo.charCodeAt(i);
-            // Проверяем, является ли символ буквой
-            if ((charCode >= 65 && charCode <= 90) || (charCode >= 97 && charCode <= 122)) {
+            if ((charCode >= 65 && charCode <= 90) || (charCode >= 97 && charCode <= 122))  {
                 name += String.fromCharCode(charCode);
-            }
-            // Проверяем, является ли символ цифрой
-            else if (charCode >= 48 && charCode <= 57) {
+            } else if (charCode >= 48 && charCode <= 57) {
                 age += String.fromCharCode(charCode);
             };
         };
         
         if (name.length && age.length !== 0) {
-            studentInformation.innerHTML = `<span class = "deleteStudent"> &#10006; </span>` +
-                                            `<h2> ${name} </h2>` +
-                                            `<span> Age: ${age} years </span>`;
             const studentsList = document.querySelector('#studentsList');
-            const errorMessage = document.querySelector('.alertIncorrectInput');
-            if (errorMessage) {
-                errorMessage.remove();
-            };
-            studentsList.insertBefore(studentInformation, document.querySelector('.addStudent'));
-            
+            const studentInformation = studentsList.querySelectorAll('li');
+            const editedName_firstCharUpperCase = name.charAt(0).toUpperCase() + name.slice(1);
+
+            let studentExists = Array.from(studentInformation).some(student => {
+                const studentName = student.querySelector('h2').textContent;
+                const studentAge = student.querySelector('span:not(.deleteStudent)').textContent.split(' ')[1];
+                return studentName === editedName_firstCharUpperCase && studentAge === age;
+            });
+    
+            if (!studentExists) {
+                const studentInformation = document.createElement('li');
+                studentInformation.innerHTML = `<span class="deleteStudent">&#10006;</span>` +
+                                               `<h2>${editedName_firstCharUpperCase}</h2>` +
+                                               `<span>Age: ${age} years</span>`;
+                studentsList.insertBefore(studentInformation, addStudentButton);
+                addStudentButton.value = '';
+                alertsRemove();
+        } else {
+            alertIfStudentExists();
+            const errorMessageIncorrectInput = document.querySelector('.alertIncorrectInput');
+            if (errorMessageIncorrectInput) errorMessageIncorrectInput.remove();
+        }
         } else {
             alertIncorrectInput();
-        };
+            const errorMessageStudentExists = document.querySelector('#alertStudentExists');
+            if(errorMessageStudentExists) errorMessageStudentExists.remove();
+        } 
     };
 
     function toggleClasses(button) {
@@ -114,16 +154,13 @@
         document.querySelector("#ShowStudentsInfoButton").addEventListener('click', (event) => {
             event.preventDefault();
             showStudentsInformation();
+            alertsRemove();
         });
 
         document.querySelector('.addStudent').addEventListener('click', (event) => {
             event.preventDefault();
             toggleClasses(event.target);
-            const errorMessage = document.querySelector('.alertIncorrectInput');
-            if (errorMessage) {
-                errorMessage.remove();
-                return;
-            };
+            alertsRemove();
         });
 
         document.querySelector('.addStudent').addEventListener('keydown', (event) => {
@@ -134,7 +171,7 @@
                 } else {
                     alertIncorrectInput();
                     return;
-                };
+                }
             };
         });
     });
