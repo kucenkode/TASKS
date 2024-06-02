@@ -27,37 +27,74 @@
     }
 
     function alertIncorrectInput() {
+        const containerStudentsList = document.querySelector('#containerStudentsList');
         if (!document.querySelector('.alertIncorrectInput')) {
             const message = document.createElement('span');
             message.className = "alertIncorrectInput";
             message.textContent = "Please enter the student's name and age!";
             message.style.color = 'red';
-            message.style.position = 'relative'; 
             message.style.margin = '20px';
+            containerStudentsList.style.gridTemplateRows = '30% 60% 25%';
+            containerStudentsList.style.justifyContent = 'initial';
+            containerStudentsList.style.alignItems = 'center';
             document.querySelector('#containerStudentsList').appendChild(message);
         }
     }
 
-    function addStudentToList(name, age) {
+    function addStudentToList() {
         const studentInformation = document.createElement('li');
-        studentInformation.innerHTML = `<span class="deleteStudent">&#10006;</span>` +
-                                `<h2>${name}</h2>` +
-                                `<span>Age: ${age} years</span>`;
-        studentsList.insertBefore(studentInformation, document.querySelector('.addStudent'));
-    }
+        const studentInfo = document.querySelector('.addStudent').value.replaceAll(' ', '');
+    
+        let name = '';
+        let age = '';
+        for (let i = 0; i < studentInfo.length; i++) {
+            const charCode = studentInfo.charCodeAt(i);
+            // Проверяем, является ли символ буквой
+            if ((charCode >= 65 && charCode <= 90) || (charCode >= 97 && charCode <= 122)) {
+                name += String.fromCharCode(charCode);
+            }
+            // Проверяем, является ли символ цифрой
+            else if (charCode >= 48 && charCode <= 57) {
+                age += String.fromCharCode(charCode);
+            };
+        };
+        
+        if (name.length && age.length !== 0) {
+            studentInformation.innerHTML = `<span class = "deleteStudent"> &#10006; </span>` +
+                                            `<h2> ${name} </h2>` +
+                                            `<span> Age: ${age} years </span>`;
+            const studentsList = document.querySelector('#studentsList');
+            const errorMessage = document.querySelector('.alertIncorrectInput');
+            if (errorMessage) {
+                errorMessage.remove();
+            };
+            studentsList.insertBefore(studentInformation, document.querySelector('.addStudent'));
+            
+        } else {
+            alertIncorrectInput();
+        };
+    };
 
     function toggleClasses(button) {
-        button.classList.toggle('addingStudent');
-        if (button.type === 'button') {
+        if (!button.clickCount) {
+            button.clickCount = 0;
+        }
+        if (button.type === 'text') {
+            button.clickCount++;
+            if (button.clickCount === 2) {
+                button.classList.toggle('addingStudent');
+                button.type = 'button';
+                button.value = '+';
+            }
+        } else {
+            button.classList.toggle('addingStudent');
             button.type = 'text';
             button.value = '';
             button.placeholder = 'Enter the student\'s name and age...';
-        } else {
-            button.value = '+';
-            button.type = 'button';
-        }
-    }
-
+            button.clickCount = 0;
+        };
+    };
+    
     function showStudentsInformation() {
         studentsList.style.display = studentsList.style.display === 'none' ? 'flex' : 'none';
         document.querySelector("#ShowStudentsInfoButton").textContent =
@@ -85,21 +122,18 @@
             const errorMessage = document.querySelector('.alertIncorrectInput');
             if (errorMessage) {
                 errorMessage.remove();
+                return;
             };
         });
 
         document.querySelector('.addStudent').addEventListener('keydown', (event) => {
             if (event.keyCode === 13 && event.target.type === 'text') {
-                const input = event.target.value.trim().split('');
-                if (input.length === 2 && !isNaN(input[1])) {
-                    addStudentToList(input[0], input[1]);
+                if (event.target.value.trim().length !== 0) {
+                    addStudentToList();
                     event.target.value = '';
-                    const errorMessage = document.querySelector('.alertIncorrectInput');
-                    if (errorMessage) {
-                        errorMessage.remove();
-                    }
                 } else {
                     alertIncorrectInput();
+                    return;
                 };
             };
         });
