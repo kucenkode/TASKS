@@ -31,7 +31,7 @@
         if (!document.querySelector('.alertIncorrectInput')) {
             const message = document.createElement('span');
             message.className = "alertIncorrectInput";
-            message.textContent = "Please enter the student's name and age!";
+            message.textContent = "please enter the student's name and age!";
             message.style.color = 'red';
             message.style.margin = '20px';
 

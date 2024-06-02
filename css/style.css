@@ -76,7 +76,7 @@ body {
 
 @media screen and (min-width: 500px) and (max-width: 700px) {
     body h1 { 
-        font-size: calc(15px + 16 * (100vw / 1280)); 
+        font-size: calc(7px + 16 * (100vw / 1280)); 
     }
     body h2 {
         font-size: calc(4px + 0.78125vw);
@@ -100,7 +100,7 @@ body {
 
 @media screen and (min-width: 700px) and (max-width: 1200px) {
     body h1 { 
-        font-size: calc(5px + 16 * (100vw / 1280)); 
+        font-size: calc(8px + 16 * (100vw / 1280)); 
     }
     body h2 {
         font-size: calc(2.5px + 0.78125vw);
@@ -120,7 +120,7 @@ body {
 
 @media screen and (min-width: 1000px) and (max-width: 1600px) {
     body h1 { 
-        font-size: calc(18px + 16 * (100vw / 1280)); 
+        font-size: calc(12px + 16 * (100vw / 1280)); 
     }
     body h2 {
         font-size: calc(6px + 0.78125vw);
@@ -140,7 +140,7 @@ body {
 
 @media screen and (min-width: 1600px) {
     body h1 { 
-        font-size: calc(20px + 16 * (100vw / 1280)); 
+        font-size: calc(13px + 16 * (100vw / 1280)); 
     }
     body h2 {
         font-size: calc(7px + 0.78125vw);

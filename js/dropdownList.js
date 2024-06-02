@@ -46,6 +46,17 @@ const parent = document.querySelector('.wrapper');
         input.parentNode.appendChild(message);
     };
 
+    function alertIfNothingWasEntered() {
+        input.style.borderColor = 'red';
+        
+        const message = document.createElement('span');
+        message.id = "alertNoTextEntered";
+        message.textContent = "empty!";
+        message.style.color = 'red';
+
+        input.parentNode.appendChild(message);
+    };
+
     document.addEventListener('DOMContentLoaded', () => {
         let messageIsShown = false;
         document.querySelector("#editOption").addEventListener("submit", (event) => {
